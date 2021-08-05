@@ -50,6 +50,7 @@ if __name__ == '__main__':
     try:
      
         while True:
+            print("reached")
             redLights(strip,Color(255,0,0))
  
     except KeyboardInterrupt:
