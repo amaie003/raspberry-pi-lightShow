@@ -76,7 +76,7 @@ if __name__ == '__main__':
     try:
      
         while True:
-            solidLightWipe(strip,Color(255,0,0))
+            breath(strip,Color(255,0,0))
  
     except KeyboardInterrupt:
         if args.clear:
