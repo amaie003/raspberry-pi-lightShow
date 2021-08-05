@@ -25,7 +25,7 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
-def redLights(strip,color,wait_ms=50):
+def solidLightWipe(strip,color,wait_ms=50):
     for i in range(strip.numPixels()):
         strip.setPixelColor(i,color)
         strip.show()
@@ -50,12 +50,11 @@ if __name__ == '__main__':
     try:
      
         while True:
-            print("reached")
-            redLights(strip,Color(255,0,0))
+            solidLightWipe(strip,Color(255,0,0))
  
     except KeyboardInterrupt:
         if args.clear:
-            colorWipe(strip, Color(0,0,0), 10)
+            solidLightWipe(strip, Color(0,0,0), 10)
 
 
 # In[ ]:
