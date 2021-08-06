@@ -2,6 +2,7 @@ import time
 from rpi_ws281x import *
 import argparse
 import math
+import socket
 
 # LED strip configuration:
 LED_COUNT      = 140      # Number of LED pixels.
@@ -82,7 +83,35 @@ if __name__ == '__main__':
             breath(strip,[int(colorR),int(colorG),int(colorB)],float(speed),70)
         elif option == 'x' or option == 'X':
             solidLightWipe(strip, Color(0,0,0), 20)
-            
+        elif option == "1":
+            HOST = '192.168.1.188'
+            PORT = 12345
+            s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+            print("socket created")
+
+            try:
+                s.bind((HOST,PORT))
+            except socket.error:
+                print("Bind Failed")
+            s.listen(1)
+            print("Socket awaitng message")
+            (conn,addr) = s.accept()
+            print("Connected")
+
+            while True:
+                data = conn.recv(1024)
+                print("I Sent a Message back in response to" + data)
+                if data == "Hello":
+                    reply = "Hi,back"
+                elif data == "test":
+                    reply = "test back"
+                elif data == "quit":
+                    conn.send("Terminating")
+                    break
+                else:
+                    reply = "unknown"
+                conn.send(reply)
+            conn.close()
 
     except KeyboardInterrupt:
         if args.clear:
