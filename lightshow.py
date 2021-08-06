@@ -4,7 +4,7 @@ import argparse
 import math
 
 # LED strip configuration:
-LED_COUNT      = 40      # Number of LED pixels.
+LED_COUNT      = 80      # Number of LED pixels.
 LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
 #LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
@@ -21,36 +21,36 @@ def solidLightWipe(strip,color,wait_ms=50):
  
 
 def breath(strip,color,speed,wait_ms=50):
-    increment = 1
-    value = 0
-    initialColor = list(color)
-    print("start "+str(color[0])+","+str(color[1])+","+str(color[2]))
-    for i in range(512):
-        for i in range(strip.numPixels()):
-            #print("set "+str(color[0])+","+str(color[1])+","+str(color[2]))
-            #print("increase?"+str(increment))
-            strip.setPixelColor(i,Color(math.floor(color[0]),math.floor(color[1]),math.floor(color[2])))
-        strip.show()
+    while True:
+        increment = 1
+        initialColor = list(color)
+        print("start "+str(color[0])+","+str(color[1])+","+str(color[2]))
+        for i in range(512):
+            for i in range(strip.numPixels()):
+                #print("set "+str(color[0])+","+str(color[1])+","+str(color[2]))
+                #print("increase?"+str(increment))
+                strip.setPixelColor(i,Color(math.floor(color[0]),math.floor(color[1]),math.floor(color[2])))
+            strip.show()
 
-        if increment == 1:
-            color[0] = min(255, color[0]*(1+speed))
-            color[1] = min(255, color[1]*(1+speed))
-            color[2] = min(255, color[2]*(1+speed))
-        elif increment == -1:
-            color[0] = max(0, color[0]*(1-speed))
-            color[1] = max(0, color[1]*(1-speed))
-            color[2] = max(0, color[2]*(1-speed))
-        
-        if (color[0] >= initialColor[0] or color[1] >= initialColor[1] or color[2] >= initialColor[2]):
-            color[0] = initialColor[0]
-            color[1] = initialColor[1]
-            color[2] = initialColor[2]
-            time.sleep(10)
-            increment = -1
-        
-        if(color[0]<= 2 or color[1]<= 2 or color[2]<= 2):
-            increment = 1
-        time.sleep(wait_ms/1000.0)
+            if increment == 1:
+                color[0] = min(255, color[0]*(1+speed))
+                color[1] = min(255, color[1]*(1+speed))
+                color[2] = min(255, color[2]*(1+speed))
+            elif increment == -1:
+                color[0] = max(0, color[0]*(1-speed))
+                color[1] = max(0, color[1]*(1-speed))
+                color[2] = max(0, color[2]*(1-speed))
+            
+            if (color[0] >= initialColor[0] or color[1] >= initialColor[1] or color[2] >= initialColor[2]):
+                color[0] = initialColor[0]
+                color[1] = initialColor[1]
+                color[2] = initialColor[2]
+                time.sleep(10)
+                increment = -1
+            
+            if(color[0]<= 2 or color[1]<= 2 or color[2]<= 2):
+                increment = 1
+            time.sleep(wait_ms/1000.0)
 
 
 # Main program logic follows:
@@ -80,8 +80,7 @@ if __name__ == '__main__':
             colorG = input ("Breath Color Green Level:")
             colorB = input ("Breath Color Blue Level:")
             speed = input("Enter color speed")
-            while True:
-                breath(strip,[int(colorR),int(colorG),int(colorB)],float(speed),70)
+            breath(strip,[int(colorR),int(colorG),int(colorB)],float(speed),70)
         elif option == 'x' or option == 'X':
             solidLightWipe(strip, Color(0,0,0), 20)
             
