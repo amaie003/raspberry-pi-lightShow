@@ -4,7 +4,6 @@ import argparse
 import math
 import socket
 import numpy as np
-from sklearn.cluster import KMeans
 
 
 # LED strip configuration:
