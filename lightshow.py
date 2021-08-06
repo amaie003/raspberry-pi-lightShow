@@ -87,7 +87,7 @@ if __name__ == '__main__':
     try:
      
         while True:
-            breath(strip,[81,197,250],300)
+            breath(strip,[81,197,250],100)
  
     except KeyboardInterrupt:
         if args.clear:
