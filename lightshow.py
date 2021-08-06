@@ -3,8 +3,7 @@ from rpi_ws281x import *
 import argparse
 import math
 import socket
-import numpy as np
-
+import json
 
 # LED strip configuration:
 LED_COUNT      = 140      # Number of LED pixels.
@@ -124,11 +123,10 @@ if __name__ == '__main__':
 
             while True:
                 data = conn.recv(1024)
-                data.replace("(","")
-                data.replace(")","")
-                rgb = data.split(",")
+                data = json.loads(data.decode())
+                
 
-                print("I Sent a Message back in response to" + rgb)
+                print("I Sent a Message back in response to" + data["r"] + ","+data["g"] + ","+data["b"])
                 if data == "Hello":
                     reply = "Hi,back"
                 elif data == "test":
