@@ -3,6 +3,9 @@ from rpi_ws281x import *
 import argparse
 import math
 import socket
+import numpy as np
+from sklearn.cluster import KMeans
+
 
 # LED strip configuration:
 LED_COUNT      = 140      # Number of LED pixels.
@@ -52,7 +55,29 @@ def breath(strip,color,speed,wait_ms=50):
             increment = 1
         time.sleep(wait_ms/1000.0)
 
+def make_histogram(cluster):
+    """
+    Count the number of pixels in each cluster
+    :param: KMeans cluster
+    :return: numpy histogram
+    """
+    numLabels = np.arange(0, len(np.unique(cluster.labels_)) + 1)
+    hist, _ = np.histogram(cluster.labels_, bins=numLabels)
+    hist = hist.astype('float32')
+    hist /= hist.sum()
+    return hist
+def make_bar(color):
+    """
+    Create an image of a given color
+    :param: height of the image
+    :param: width of the image
+    :param: BGR pixel values of the color
+    :return: tuple of bar, rgb values, and hsv values
+    """
+   
+    red, green, blue = int(color[2]), int(color[1]), int(color[0])
 
+    return (red, green, blue)
 # Main program logic follows:
 if __name__ == '__main__':
     # Process arguments
@@ -100,6 +125,9 @@ if __name__ == '__main__':
 
             while True:
                 data = conn.recv(1024)
+                img = np.fromstring(data.data, dtype=np.float64)
+                img = np.reshape(img, (400, 500, 3))
+                print("Length :"+str(len(img)) )
                 print("I Sent a Message back in response to" + data)
                 if data == "Hello":
                     reply = "Hi,back"
