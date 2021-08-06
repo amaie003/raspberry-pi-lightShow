@@ -47,7 +47,7 @@ def breath(strip,color,wait_ms=50):
     for i in range(512):
         for i in range(strip.numPixels()):
             print("set "+str(color[0])+","+str(color[1])+","+str(color[2]))
-            print("increase?"+increment)
+            print("increase?"+str(increment))
             strip.setPixelColor(i,Color(math.floor(color[0]),math.floor(color[1]),math.floor(color[2])))
         strip.show()
 
