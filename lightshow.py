@@ -125,10 +125,11 @@ if __name__ == '__main__':
 
             while True:
                 data = conn.recv(1024)
-                img = np.fromstring(data.data, dtype=np.float64)
-                img = np.reshape(img, (400, 500, 3))
-                print("Length :"+str(len(img)) )
-                print("I Sent a Message back in response to" + data)
+                data.replace("(","")
+                data.replace(")","")
+                rgb = data.split(",")
+
+                print("I Sent a Message back in response to" + rgb)
                 if data == "Hello":
                     reply = "Hi,back"
                 elif data == "test":
