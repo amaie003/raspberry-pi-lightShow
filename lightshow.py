@@ -45,6 +45,7 @@ def breath(strip,color,speed,wait_ms=50):
             color[0] = initialColor[0]
             color[1] = initialColor[1]
             color[2] = initialColor[2]
+            time.sleep(10)
             increment = -1
         
         if(color[0]<= 2 or color[1]<= 2 or color[2]<= 2):
