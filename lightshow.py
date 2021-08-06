@@ -14,7 +14,8 @@
 import time
 from rpi_ws281x import *
 import argparse
- 
+import math
+
 # LED strip configuration:
 LED_COUNT      = 30      # Number of LED pixels.
 LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
@@ -41,7 +42,7 @@ def breath(strip,color,wait_ms=50):
     color = g
     b = color
 
-    color = [color >> 16,color >> 8,color]
+    color = [r,g,b]
     
     
 
@@ -53,13 +54,13 @@ def breath(strip,color,wait_ms=50):
             strip.setPixelColor(i,Color(color[0],color[1],color[2]))
         strip.show()
         if increment == 1:
-            color[0] = min(255, color[0]*1.1)
-            color[1] = min(255, color[1]*1.1)
-            color[2] = min(255, color[2]*1.1)
+            color[0] = math.floor(min(255, color[0]*1.1))
+            color[1] = math.floor(min(255, color[1]*1.1))
+            color[2] = math.floor(min(255, color[2]*1.1))
         elif increment == -1:
-            color[0] = max(0, color[0]*0.9)
-            color[1] = max(0, color[1]*0.9)
-            color[2] = max(0, color[2]*0.9)
+            color[0] = math.floor(max(0, color[0]*0.9))
+            color[1] = math.floor(max(0, color[1]*0.9))
+            color[2] = math.floor(max(0, color[2]*0.9))
         if (color[0] >= initialColor[0] or color[1] >= initialColor[1] or color[2] >= initialColor[2]):
             color[0] = initialColor[0]
             color[1] = initialColor[1]
