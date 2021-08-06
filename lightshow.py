@@ -124,19 +124,13 @@ if __name__ == '__main__':
             while True:
                 data = conn.recv(1024)
                 data = json.loads(data.decode())
-                
+                for i in range(strip.numPixels()):
+                    strip.setPixelColor(i,color)
+                strip.show()
+                time.sleep(50/1000)
 
-                print("I Sent a Message back in response to" + str(data["r"]) + ","+str(data["g"]) + ","+str(data["b"]))
-                if data == "Hello":
-                    reply = "Hi,back"
-                elif data == "test":
-                    reply = "test back"
-                elif data == "quit":
-                    conn.send("Terminating")
-                    break
-                else:
-                    reply = "unknown"
-                conn.send(reply)
+
+                
             conn.close()
 
     except KeyboardInterrupt:
