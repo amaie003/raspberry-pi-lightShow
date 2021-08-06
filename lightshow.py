@@ -126,7 +126,7 @@ if __name__ == '__main__':
                 data = json.loads(data.decode())
                 
 
-                print("I Sent a Message back in response to" + data["r"] + ","+data["g"] + ","+data["b"])
+                print("I Sent a Message back in response to" + str(data["r"]) + ","+str(data["g"]) + ","+str(data["b"]))
                 if data == "Hello":
                     reply = "Hi,back"
                 elif data == "test":
