@@ -75,12 +75,11 @@ if __name__ == '__main__':
         print("------------------------------------------------")
         option = input("Enter Option:")
         if option == 0:
+            colorR = input ("Breath Color Red Level:")
+            colorG = input ("Breath Color Green Level:")
+            colorB = input ("Breath Color Blue Level:")
+            speed = input("Enter color speed")
             while True:
-
-                colorR = input ("Breath Color Red Level:")
-                colorG = input ("Breath Color Green Level:")
-                colorB = input ("Breath Color Blue Level:")
-                speed = input("Enter color speed")
                 breath(strip,[colorR,colorG,colorB],speed,70)
         elif option == 'x' or option == 'X':
             solidLightWipe(strip, Color(0,0,0), 20)
