@@ -76,9 +76,14 @@ if __name__ == '__main__':
         option = input("Enter Option:")
         if option == 0:
             while True:
-                breath(strip,[81,197,250],70,0.05)
+
+                colorR = input ("Breath Color Red Level:")
+                colorG = input ("Breath Color Green Level:")
+                colorB = input ("Breath Color Blue Level:")
+                speed = input("Enter color speed")
+                breath(strip,[colorR,colorG,colorB],70,speed)
         elif option == 'x' or option == 'X':
-            solidLightWipe(strip, Color(0,0,0), 10)
+            solidLightWipe(strip, Color(0,0,0), 20)
             return
 
     except KeyboardInterrupt:
