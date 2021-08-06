@@ -37,6 +37,8 @@ def breath(strip,color,wait_ms=50):
     value = 0
     color = [color >> 16,color >> 8,color]
     initialColor = color
+    print("start "+color[0]+","+color[1]+","+color[2])
+
     while True:
         if color[0] <= 0 or color[1] <= 0 or color[2] <= 0:
             break
@@ -46,6 +48,7 @@ def breath(strip,color,wait_ms=50):
     minColor = color
     for i in range(256):
         for i in range(strip.numPixels()):
+            print("set "+color[0]+","+color[1]+","+color[2])
             strip.setPixelColor(i,Color(color[0],color[1],color[2]))
         strip.show()
         color[0] = color[0] + increment
