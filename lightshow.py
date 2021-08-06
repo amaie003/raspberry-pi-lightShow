@@ -91,7 +91,7 @@ if __name__ == '__main__':
     try:
      
         while True:
-            breath(strip,Color(81,197,250),1000)
+            breath(strip,Color(81,197,250),300)
  
     except KeyboardInterrupt:
         if args.clear:
