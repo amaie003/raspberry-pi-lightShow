@@ -74,7 +74,7 @@ if __name__ == '__main__':
         print("Enter 'X' to exit")
         print("------------------------------------------------")
         option = input("Enter Option:")
-        if option == 0:
+        if option == "0":
             colorR = input ("Breath Color Red Level:")
             colorG = input ("Breath Color Green Level:")
             colorB = input ("Breath Color Blue Level:")
