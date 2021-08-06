@@ -1,4 +1,4 @@
- import time
+import time
 from rpi_ws281x import *
 import argparse
 import math
