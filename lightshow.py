@@ -20,7 +20,7 @@ def solidLightWipe(strip,color,wait_ms=50):
         time.sleep(wait_ms/1000)
  
 
-def breath(strip,color,wait_ms=50,speed):
+def breath(strip,color,speed,wait_ms=50):
     increment = 1
     value = 0
     initialColor = list(color)
@@ -81,7 +81,7 @@ if __name__ == '__main__':
                 colorG = input ("Breath Color Green Level:")
                 colorB = input ("Breath Color Blue Level:")
                 speed = input("Enter color speed")
-                breath(strip,[colorR,colorG,colorB],70,speed)
+                breath(strip,[colorR,colorG,colorB],speed,70)
         elif option == 'x' or option == 'X':
             solidLightWipe(strip, Color(0,0,0), 20)
             return
