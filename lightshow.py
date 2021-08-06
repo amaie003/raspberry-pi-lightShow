@@ -42,7 +42,7 @@ def breath(strip,color,wait_ms=50):
     
     
 
-    initialColor = color
+    initialColor = List(color)
     print("start "+str(color[0])+","+str(color[1])+","+str(color[2]))
     for i in range(512):
         for i in range(strip.numPixels()):
