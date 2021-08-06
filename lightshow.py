@@ -66,7 +66,7 @@ def breath(strip,color,wait_ms=50):
             color[1] = initialColor[1]
             color[2] = initialColor[2]
             increment = -1
-        elif(color[0]< 1 or color[1]< 1 or color[2]< 1):
+        elif(color[0]<= 2 or color[1]<= 2 or color[2]<= 2):
             
             increment = 1
         time.sleep(wait_ms/1000.0)
@@ -91,7 +91,7 @@ if __name__ == '__main__':
     try:
      
         while True:
-            breath(strip,Color(255,0,0))
+            breath(strip,Color(81,197,250),1000)
  
     except KeyboardInterrupt:
         if args.clear:
