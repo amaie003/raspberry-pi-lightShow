@@ -125,7 +125,7 @@ if __name__ == '__main__':
                 data = conn.recv(1024)
                 data = json.loads(data.decode())
                 for i in range(strip.numPixels()):
-                    strip.setPixelColor(i,color)
+                    strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
                 strip.show()
                 time.sleep(50/1000)
 
