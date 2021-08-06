@@ -35,28 +35,38 @@ def solidLightWipe(strip,color,wait_ms=50):
 def breath(strip,color,wait_ms=50):
     increment = 1
     value = 0
-    color = [color >> 16,color >> 8,color]
-    initialColor = color
-    print("start "+color[0]+","+color[1]+","+color[2])
+    r = color >>16
+    color = r  
+    g = color >> 8
+    color = g
+    b = color
 
-    while True:
-        if color[0] <= 0 or color[1] <= 0 or color[2] <= 0:
-            break
-        color[0]= color[0]-1
-        color[1] = color[1]-1
-        color[2] = color[2]-1
-    minColor = color
+    color = [color >> 16,color >> 8,color]
+    
+    
+
+    initialColor = color
+    print("start "+str(color[0])+","+str(color[1])+","+str(color[2]))
     for i in range(256):
         for i in range(strip.numPixels()):
-            print("set "+color[0]+","+color[1]+","+color[2])
+            print("set "+str(color[0])+","+str(color[1])+","+str(color[2]))
             strip.setPixelColor(i,Color(color[0],color[1],color[2]))
         strip.show()
-        color[0] = color[0] + increment
-        color[1] = color[1] + increment
-        color[2] = color[2] + increment
+        if increment == 1:
+            color[0] = min(255, color[0]*1.1)
+            color[1] = min(255, color[1]*1.1)
+            color[2] = min(255, color[2]*1.1)
+        elif increment == -1:
+            color[0] = max(0, color[0]*0.9)
+            color[1] = max(0, color[1]*0.9)
+            color[2] = max(0, color[2]*0.9)
         if (color[0] >= initialColor[0] or color[1] >= initialColor[1] or color[2] >= initialColor[2]):
+            color[0] = initialColor[0]
+            color[1] = initialColor[1]
+            color[2] = initialColor[2]
             increment = -1
-        elif(color[0]< minColor[0] or color[1]< minColor[1] or color[2]< minColor[2]):
+        elif(color[0]< 1 or color[1]< 1 or color[2]< 1):
+            
             increment = 1
         time.sleep(wait_ms/1000.0)
 
