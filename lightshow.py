@@ -141,6 +141,7 @@ if __name__ == '__main__':
                         old["g"] = new["g"]
                         old["b"] = new["b"]
                         for i in range(strip.numPixels()):
+                            print("showing "+str(new["r"])+","+str(new["g"])+","+str(new["b"]))
                             strip.setPixelColor(i,Color(new["r"],new["g"],new["b"]))
                         strip.show()
                         time.sleep(50/1000.0)
