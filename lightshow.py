@@ -123,9 +123,9 @@ if __name__ == '__main__':
             print("Connected")
             old={"r":0,"g":0,"b":0}
             while True:
-                
-                data = json.loads(conn.recv(1024).decode())
-                
+                data = conn.recv(1024)
+                print("data:"+data.decode())
+                data = json.loads(data.decode())
                 data["r"] = int(data["r"]*0.5)
                 data["g"] = int(data["g"]*0.5)
                 data["b"] = int(data["b"]*0.5)
