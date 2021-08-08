@@ -127,9 +127,7 @@ if __name__ == '__main__':
                 data = data.decode()
                 data = data[0:data.find("}")+1]
                 data = json.loads(data)
-                data["r"] = int(data["r"]*0.5)
-                data["g"] = int(data["g"]*0.5)
-                data["b"] = int(data["b"]*0.5)
+               
                 new = {}
                 new["r"] = data["r"]
                 new["g"] = data["g"]
