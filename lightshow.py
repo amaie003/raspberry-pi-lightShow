@@ -143,6 +143,7 @@ if __name__ == '__main__':
                         for i in range(strip.numPixels()):
                             strip.setPixelColor(i,Color(new["r"],new["g"],new["b"]))
                         strip.show()
+                        time.sleep(50/1000.0)
                     else:
                         break
 
