@@ -141,16 +141,17 @@ if __name__ == '__main__':
                         old["g"] = new["g"]
                         old["b"] = new["b"]
                         for i in range(strip.numPixels()):
+                            print("old is "+str(old["r"])+","+str(old["g"])+","+str(old["b"]))
                             print("showing "+str(new["r"])+","+str(new["g"])+","+str(new["b"]))
                             strip.setPixelColor(i,Color(new["r"],new["g"],new["b"]))
                         strip.show()
-                        time.sleep(100/1000.0)
+                        time.sleep(75/1000.0)
                     else:
                         break
 
-                for i in range(strip.numPixels()):
-                    strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
-                strip.show()
+                #for i in range(strip.numPixels()):
+                #    strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
+               # strip.show()
                 
 
 
