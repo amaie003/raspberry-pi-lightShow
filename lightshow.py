@@ -135,11 +135,11 @@ if __name__ == '__main__':
                 while True:
                     if abs(data["r"]+old["r"])>10 and abs(data["g"]+old["g"])>10 and abs(data["b"]+old["b"])>10:
                         new["r"] = int((data["r"]+old["r"])/2)
-                        new["g"] = int((data["r"]+old["r"])/2)
-                        new["b"] = int((data["r"]+old["r"])/2)
+                        new["g"] = int((data["g"]+old["g"])/2)
+                        new["b"] = int((data["b"]+old["b"])/2)
                         old["r"] = new["r"]
-                        old["r"] = new["r"]
-                        old["r"] = new["r"]
+                        old["g"] = new["g"]
+                        old["b"] = new["b"]
                         for i in range(strip.numPixels()):
                             strip.setPixelColor(i,Color(new["r"],new["g"],new["b"]))
                         strip.show()
