@@ -133,7 +133,7 @@ if __name__ == '__main__':
                 new["g"] = data["g"]
                 new["b"] = data["b"]
                 while True:
-                    if abs(data["r"]-old["r"])>10 and abs(data["g"]-old["g"])>10 and abs(data["b"]-old["b"])>10:
+                    if abs(data["r"]-old["r"])>3 and abs(data["g"]-old["g"])>3 and abs(data["b"]-old["b"])>3:
                         new["r"] = int((data["r"]+old["r"])/2)
                         new["g"] = int((data["g"]+old["g"])/2)
                         new["b"] = int((data["b"]+old["b"])/2)
