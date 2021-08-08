@@ -133,7 +133,7 @@ if __name__ == '__main__':
                 new["g"] = data["g"]
                 new["b"] = data["b"]
                 while True:
-                    if abs(data["r"]-old["r"])>3 and abs(data["g"]-old["g"])>3 and abs(data["b"]-old["b"])>3:
+                    if abs(data["r"]-old["r"])>5 or abs(data["g"]-old["g"])>5 or abs(data["b"]-old["b"])>5:
                         new["r"] = int((data["r"]+old["r"])/2)
                         new["g"] = int((data["g"]+old["g"])/2)
                         new["b"] = int((data["b"]+old["b"])/2)
@@ -144,12 +144,13 @@ if __name__ == '__main__':
                         print("old is "+str(old["r"])+","+str(old["g"])+","+str(old["b"]))
                         print("showing "+str(new["r"])+","+str(new["g"])+","+str(new["b"]))
                         for i in range(strip.numPixels()):
-                         
                             strip.setPixelColor(i,Color(new["r"],new["g"],new["b"]))
                         strip.show()
                         time.sleep(75/1000.0)
                     else:
-                        break
+                        for i in range(strip.numPixels()):
+                            strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
+                        strip.show()
 
                 #for i in range(strip.numPixels()):
                 #    strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
