@@ -103,6 +103,7 @@ if __name__ == '__main__':
             colorG = input ("Breath Color Green Level:")
             colorB = input ("Breath Color Blue Level:")
             speed = input("Enter color speed")
+            solidLightWipe(strip, Color(int(colorR),int(colorG),int(colorB)), 10)
             breath(strip,[int(colorR),int(colorG),int(colorB)],float(speed),70)
         elif option == 'x' or option == 'X':
             solidLightWipe(strip, Color(0,0,0), 20)
