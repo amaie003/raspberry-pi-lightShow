@@ -144,7 +144,7 @@ if __name__ == '__main__':
                             print("showing "+str(new["r"])+","+str(new["g"])+","+str(new["b"]))
                             strip.setPixelColor(i,Color(new["r"],new["g"],new["b"]))
                         strip.show()
-                        time.sleep(50/1000.0)
+                        time.sleep(100/1000.0)
                     else:
                         break
 
