@@ -121,10 +121,31 @@ if __name__ == '__main__':
             print("Socket awaitng message")
             (conn,addr) = s.accept()
             print("Connected")
-
+            old={"r":0,"g":0,"b":0}
             while True:
                 data = conn.recv(1024)
                 data = json.loads(data.decode())
+                data["r"] = int(data["r"]*0.5)
+                data["g"] = int(data["g"]*0.5)
+                data["b"] = int(data["b"]*0.5)
+                new = {}
+                new["r"] = data["r"]
+                new["g"] = data["g"]
+                new["b"] = data["b"]
+                while True:
+                    if abs(data["r"]+old["r"])>10 and abs(data["g"]+old["g"])>10 and abs(data["b"]+old["b"])>10:
+                        new["r"] = int((data["r"]+old["r"])/2)
+                        new["g"] = int((data["r"]+old["r"])/2)
+                        new["b"] = int((data["r"]+old["r"])/2)
+                        old["r"] = new["r"]
+                        old["r"] = new["r"]
+                        old["r"] = new["r"]
+                        for i in range(strip.numPixels()):
+                            strip.setPixelColor(i,Color(new["r"],new["g"],new["b"]))
+                        strip.show()
+                    else:
+                        break
+
                 for i in range(strip.numPixels()):
                     strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
                 strip.show()
