@@ -148,9 +148,10 @@ if __name__ == '__main__':
                         strip.show()
                         time.sleep(75/1000.0)
                     else:
-                        for i in range(strip.numPixels()):
-                            strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
-                        strip.show()
+                        break
+                for i in range(strip.numPixels()):
+                    strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
+                    strip.show()
 
                 #for i in range(strip.numPixels()):
                 #    strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
