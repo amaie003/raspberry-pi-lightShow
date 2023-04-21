@@ -139,7 +139,7 @@ def main():
             print("Button was pushed!")
             time.sleep(2)
           
-            mode = (mode + 1) % 3
+            mode = (mode + 1) % 4
             print("Current new mode: "+ str(mode) + "!")
             
             if Threthread != None:
