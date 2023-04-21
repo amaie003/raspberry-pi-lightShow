@@ -53,6 +53,7 @@ def breath(strip,color,speed,wait_s=50):
             color[0] = initialColor[0]
             color[1] = initialColor[1]
             color[2] = initialColor[2]
+            print("Already Max Color. Sleep")
             if sleepShouldBreak(wait_s):
                 print("ending thread")
                 return
