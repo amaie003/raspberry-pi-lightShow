@@ -29,7 +29,7 @@ def solidLightWipe(strip,color,wait_ms=50):
         time.sleep(wait_ms/1000)
  
 
-def breath(strip,color,speed,wait_ms=50):
+def breath(strip,color,speed,wait_s=50):
     increment = 1
     initialColor = list(color)
     print("start "+str(color[0])+","+str(color[1])+","+str(color[2]))
@@ -57,7 +57,8 @@ def breath(strip,color,speed,wait_ms=50):
         
         if(color[0]<= 2 or color[1]<= 2 or color[2]<= 2):
             increment = 1
-        sleepTime = wait_ms/1000.0
+
+        sleepTime = wait_s
         global stop_threads
         if stop_threads:
             break
@@ -111,11 +112,11 @@ def make_bar(color):
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/red':
-            startBreath(255,25,25,0.1)
+            startBreath(255,25,25,0.1,10)
         elif self.path == '/blue':
-            startBreath(25,25,255,0.1)
+            startBreath(25,25,255,0.1,10)
         elif self.path == '/green':
-            startBreath(25,255,25,0.1)
+            startBreath(25,255,25,0.1,10)
             
         self.send_response(200)
 
