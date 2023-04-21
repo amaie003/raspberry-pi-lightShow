@@ -132,10 +132,11 @@ def main():
     Threthread = None
     while True: # Run forever
         if GPIO.input(10) == GPIO.LOW:
-            time.sleep(3)
+            print("Button was pushed!")
+            time.sleep(2)
           
             mode = (mode + 1) % 3
-            print("Button was pushed, current mode: "+ mode + "!")
+            print("Current new mode: "+ str(mode) + "!")
             
             if Threthread != None:
                 global stop_threads
