@@ -145,7 +145,7 @@ def main():
                 time.sleep(10)
         
             stop_threads = False
-            Threthread = Thread(target=handlebutton, args=(mode))
+            Threthread = Thread(target=handlebutton, args=(mode,))
             Threthread.start()
 
 
