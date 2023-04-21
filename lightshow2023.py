@@ -5,6 +5,7 @@ import math
 import json
 import socketserver
 from http.server import BaseHTTPRequestHandler
+from threading import Thread
 import RPi.GPIO as GPIO # Import Raspberry Pi GPIO library
 GPIO.setwarnings(False) # Ignore warning for now
 GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
@@ -19,7 +20,7 @@ LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 strip = None
-
+stop_threads = False
 
 def solidLightWipe(strip,color,wait_ms=50):
     for i in range(strip.numPixels()):
@@ -58,6 +59,9 @@ def breath(strip,color,speed,wait_ms=50):
         if(color[0]<= 2 or color[1]<= 2 or color[2]<= 2):
             increment = 1
         time.sleep(wait_ms/1000.0)
+        global stop_threads
+        if stop_threads:
+             break
 
 def make_histogram(cluster):
     """
@@ -101,6 +105,13 @@ def startBreath(red,green,blue,speed):
     solidLightWipe(strip, Color(int(red),int(green),int(blue)), 10)
     breath(strip,[int(red),int(green),int(blue)],float(speed),70)
 
+def handlebutton(mode):
+    if mode == 0:
+        startBreath(255,25,25,0.1)
+    elif mode == 1:
+        startBreath(25,255,25,0.1)
+    elif mode == 2:
+        startBreath(25,25,255,0.1)
 
 # Main program logic follows:
 
@@ -117,10 +128,24 @@ def main():
     GPIO.setwarnings(False) # Ignore warning for now
     GPIO.setmode(GPIO.BOARD) # Use physical pin numbering
     GPIO.setup(10, GPIO.IN, pull_up_down=GPIO.PUD_DOWN) # Set pin 10 to be an input pin and set initial value to be pulled low (off)
+    mode = 0
+    Threthread = None
     while True: # Run forever
         if GPIO.input(10) == GPIO.LOW:
-            time.sleep(10)
-            print("Button was pushed!")
+            time.sleep(3)
+          
+            mode = (mode + 1) % 3
+            print("Button was pushed, current mode: "+ mode + "!")
+            
+            if Threthread != None:
+                global stop_threads
+                stop_threads = True
+                Threthread.join()
+                time.sleep(10)
+        
+            stop_threads = False
+            Threthread = Thread(target=handlebutton, args=(mode))
+            Threthread.start;
 
 
 main()
