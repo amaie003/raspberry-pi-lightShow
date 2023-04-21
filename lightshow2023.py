@@ -131,11 +131,11 @@ def startBreath(red,green,blue,speed):
 
 def handlebutton(mode):
     if mode == 0:
-        startBreath(255,25,25,0.1)
+        startBreath(255,25,25,0.1,10)
     elif mode == 1:
-        startBreath(25,255,25,0.1)
+        startBreath(25,255,25,0.1,10)
     elif mode == 2:
-        startBreath(25,25,255,0.1)
+        startBreath(25,25,255,0.1,10)
     elif mode == 3:
         solidLightWipe(strip, Color(int(0),int(0),int(0)), 10)
 
