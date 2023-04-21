@@ -112,6 +112,9 @@ def handlebutton(mode):
         startBreath(25,255,25,0.1)
     elif mode == 2:
         startBreath(25,25,255,0.1)
+    elif mode == 3:
+        solidLightWipe(strip, Color(int(0),int(0),int(0)), 10)
+
 
 # Main program logic follows:
 
