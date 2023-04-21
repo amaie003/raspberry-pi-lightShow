@@ -140,10 +140,10 @@ def main():
             print("Current new mode: "+ str(mode) + "!")
             
             if Threthread != None:
+                print("Killing Old Thread")
                 global stop_threads
                 stop_threads = True
                 Threthread.join()
-                time.sleep(10)
         
             stop_threads = False
             Threthread = Thread(target=handlebutton, args=(mode,))
