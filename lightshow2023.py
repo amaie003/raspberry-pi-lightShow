@@ -113,7 +113,7 @@ def main():
     # Intialize the library (must be called once before other functions).
     strip.begin()
 
-    httpd = SocketServer.TCPServer(("", 8080), MyHandler)
+    httpd = socketserver.TCPServer(("", 8080), MyHandler)
     httpd.serve_forever()
 
 
