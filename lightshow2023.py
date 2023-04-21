@@ -146,7 +146,7 @@ def main():
         
             stop_threads = False
             Threthread = Thread(target=handlebutton, args=(mode))
-            Threthread.start;
+            Threthread.start()
 
 
 main()
