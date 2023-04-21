@@ -60,7 +60,7 @@ def breath(strip,color,speed,wait_s=50):
         if(color[0]<= 2 or color[1]<= 2 or color[2]<= 2):
             increment = 1
 
-        time.sleep(50/1000)
+        time.sleep(50/1000.0)
         
 def sleepShouldBreak(sleepTime):
     global stop_threads
