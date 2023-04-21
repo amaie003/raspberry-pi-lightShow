@@ -59,15 +59,16 @@ def breath(strip,color,speed,wait_ms=50):
         if(color[0]<= 2 or color[1]<= 2 or color[2]<= 2):
             increment = 1
         sleepTime = wait_ms/1000.0
-        if stop_threads:
-            break
-        time.sleep(sleepTime/2)
-        if stop_threads:
-            break
-        time.sleep(sleepTime/2)
-        if stop_threads:
-            break
         global stop_threads
+        if stop_threads:
+            break
+        time.sleep(sleepTime/2)
+        if stop_threads:
+            break
+        time.sleep(sleepTime/2)
+        if stop_threads:
+            break
+        
        
 
 def make_histogram(cluster):
