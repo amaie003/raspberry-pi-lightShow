@@ -62,10 +62,22 @@ def breath(strip,color,speed,wait_ms=50):
         global stop_threads
         if stop_threads:
             break
-        time.sleep(sleepTime/2)
+        time.sleep(sleepTime/6)
         if stop_threads:
             break
-        time.sleep(sleepTime/2)
+        time.sleep(sleepTime/6)
+        if stop_threads:
+            break
+        time.sleep(sleepTime/6)
+        if stop_threads:
+            break
+        time.sleep(sleepTime/6)
+        if stop_threads:
+            break
+        time.sleep(sleepTime/6)
+        if stop_threads:
+            break
+        time.sleep(sleepTime/6)
         if stop_threads:
             break
         
