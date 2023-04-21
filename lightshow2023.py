@@ -2,8 +2,9 @@ import time
 from rpi_ws281x import *
 import argparse
 import math
-import socket
 import json
+import SocketServer
+from BaseHTTPServer import BaseHTTPRequestHandler
 
 # LED strip configuration:
 LED_COUNT      = 150      # Number of LED pixels.
@@ -14,6 +15,8 @@ LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
 LED_INVERT     = False   # True to invert the signal (when using NPN transistor level shift)
 LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
+strip = None
+
 
 def solidLightWipe(strip,color,wait_ms=50):
     for i in range(strip.numPixels()):
@@ -64,6 +67,7 @@ def make_histogram(cluster):
     hist = hist.astype('float32')
     hist /= hist.sum()
     return hist
+
 def make_bar(color):
     """
     Create an image of a given color
@@ -76,95 +80,45 @@ def make_bar(color):
     red, green, blue = int(color[2]), int(color[1]), int(color[0])
 
     return (red, green, blue)
+
+
+class MyHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/red':
+            startBreath(255,25,25,0.1)
+        elif self.path == '/blue':
+            startBreath(25,25,255,0.1)
+        elif self.path == '/green':
+            startBreath(25,255,25,0.1)
+            
+        self.send_response(200)
+
+        
+def startBreath(red,green,blue,speed):
+    solidLightWipe(strip, Color(int(red),int(green),int(blue)), 10)
+    breath(strip,[int(red),int(green),int(blue)],float(speed),70)
+
+
 # Main program logic follows:
-if __name__ == '__main__':
+
+def main():
+    print("Hello World!")
     # Process arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('-c', '--clear', action='store_true', help='clear the display on exit')
     args = parser.parse_args()
- 
+
     # Create NeoPixel object with appropriate configuration.
     strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     # Intialize the library (must be called once before other functions).
     strip.begin()
- 
-    print ('Press Ctrl-C to quit.')
-    if not args.clear:
-        print('Use "-c" argument to clear LEDs on exit')
- 
-    try:
-        print("---------Welcome to the lightshow---------------")
-        print("Enter '0' for breathing mode")
-        print("Enter 'X' to exit")
-        print("------------------------------------------------")
-        option = input("Enter Option:")
-        if option == "0":
-            colorR = input ("Breath Color Red Level:")
-            colorG = input ("Breath Color Green Level:")
-            colorB = input ("Breath Color Blue Level:")
-            speed = input("Enter color speed")
-            solidLightWipe(strip, Color(int(colorR),int(colorG),int(colorB)), 10)
-            breath(strip,[int(colorR),int(colorG),int(colorB)],float(speed),70)
-        elif option == 'x' or option == 'X':
-            solidLightWipe(strip, Color(0,0,0), 20)
-        elif option == "1":
-            HOST = '192.168.1.188'
-            PORT = 12345
-            s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-            print("socket created")
 
-            try:
-                s.bind((HOST,PORT))
-            except socket.error:
-                print("Bind Failed")
-            s.listen(1)
-            print("Socket awaitng message")
-            (conn,addr) = s.accept()
-            print("Connected")
-            old={"r":0,"g":0,"b":0}
-            while True:
-                data = conn.recv(1024)
-                data = data.decode()
-                data = data[0:data.find("}")+1]
-                data = json.loads(data)
-               
-                new = {}
-                new["r"] = data["r"]
-                new["g"] = data["g"]
-                new["b"] = data["b"]
-                while True:
-                    if abs(data["r"]-old["r"])>5 or abs(data["g"]-old["g"])>5 or abs(data["b"]-old["b"])>5:
-                        new["r"] = int((data["r"]+old["r"])/2)
-                        new["g"] = int((data["g"]+old["g"])/2)
-                        new["b"] = int((data["b"]+old["b"])/2)
-                        old["r"] = new["r"]
-                        old["g"] = new["g"]
-                        old["b"] = new["b"]
-                        print("data:"+str(data["r"])+","+str(data["g"])+","+str(data["b"]))
-                        print("old is "+str(old["r"])+","+str(old["g"])+","+str(old["b"]))
-                        print("showing "+str(new["r"])+","+str(new["g"])+","+str(new["b"]))
-                        for i in range(strip.numPixels()):
-                            strip.setPixelColor(i,Color(new["r"],new["g"],new["b"]))
-                        strip.show()
-                        time.sleep(75/1000.0)
-                    else:
-                        break
-                for i in range(strip.numPixels()):
-                    strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
-                    strip.show()
-
-                #for i in range(strip.numPixels()):
-                #    strip.setPixelColor(i,Color(data["r"],data["g"],data["b"]))
-               # strip.show()
-                
+    httpd = SocketServer.TCPServer(("", 8080), MyHandler)
+    httpd.serve_forever()
 
 
-                
-            conn.close()
+main()
 
-    except KeyboardInterrupt:
-        if args.clear:
-            solidLightWipe(strip, Color(0,0,0), 10)
 
 
 
