@@ -125,9 +125,9 @@ class MyHandler(BaseHTTPRequestHandler):
         self.send_response(200)
 
         
-def startBreath(red,green,blue,speed):
+def startBreath(red,green,blue,speed,wait):
     solidLightWipe(strip, Color(int(red),int(green),int(blue)), 10)
-    breath(strip,[int(red),int(green),int(blue)],float(speed),70)
+    breath(strip,[int(red),int(green),int(blue)],float(speed),wait)
 
 def handlebutton(mode):
     if mode == 0:
