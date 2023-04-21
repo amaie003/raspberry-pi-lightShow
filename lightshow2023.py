@@ -3,7 +3,7 @@ from rpi_ws281x import *
 import argparse
 import math
 import json
-import SocketServer
+import socketserver
 from BaseHTTPServer import BaseHTTPRequestHandler
 
 # LED strip configuration:
