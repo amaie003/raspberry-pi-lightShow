@@ -4,7 +4,7 @@ import argparse
 import math
 import json
 import socketserver
-from BaseHTTPServer import BaseHTTPRequestHandler
+from http.server import BaseHTTPRequestHandler
 
 # LED strip configuration:
 LED_COUNT      = 150      # Number of LED pixels.
